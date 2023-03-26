@@ -48,10 +48,12 @@ jobs:
           sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
           ./scripts/feeds update -a
           ./scripts/feeds install -a
-          touch ./.config
 
       - name: Generate configuration file
-        run: make defconfig
+        run: |
+          make defconfig
+          cp -f ./default.config ./.config
+          touch ./.config
 
       - name: Download packages
         run: make download -j16
